@@ -52,15 +52,43 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
   // create a new category
-  
+  Category.create({
+    category_name: req.body.category_name,
+  })
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
   // update a category by its `id` value
+  await Category.update(req.body, {
+    where: {
+      id: req.params.id,
+    },
+  })
+    .then((category) => {
+      res.status(200).json(category);
+    }).catch((err) => {
+      console.log(err);
+      res.status(400).json(err);
+    })
 });
 
 router.delete('/:id', (req, res) => {
   // delete a category by its `id` value
+  Category.destroy({
+    where:{
+      id: req.params.id,
+    },
+  })
+    .then(dbData => {
+      if(!dbData){
+        res.status(404).json({ message: "User not found"})
+        return;
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 module.exports = router;

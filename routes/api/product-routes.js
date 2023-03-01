@@ -7,14 +7,59 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 // get all products
 router.get('/', (req, res) => {
   // find all products
-  
+  Product.findAll({
+    // products must include the category and the tag use the include: and model:
+    include: [
+      {
+        model: Category,
+        attributes: ["category_name"],
+      },
+      {
+        model: Tag,
+        attributes: ["tag_name"],
+      },
+    ],
+  })
+    .then((dbData) => res.json(dbData))
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 // get one product
 router.get('/:id', (req, res) => {
   // find a single product by its `id`
   // be sure to include its associated Category and Tag data
+  Product.findOne({
+    // the where targets the items specific ID
+    where: {
+      id: req.params.id,
+    },
+    // more things to include on the get
+    include: [
+      {
+        model: Category,
+        attributes: ["category_name"],
+      },
+      {
+        model: Tag,
+      },
+    ],
+  })
 
+  // it seems the .then and the catch statements are redundant; i've been able to copy and paste most of them
+  .then((dbUserData) => {
+    if (!dbUserData) {
+      res.status(404).json({ message: "id not found" });
+      return;
+    }
+    res.json(dbUserData);
+  })
+  .catch((err) => {
+    console.log(err);
+    res.status(500).json(err);
+  });
 });
 
 // create new product
@@ -93,6 +138,23 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   // delete one product by its `id` value
+  Product.destroy({
+    where:{
+      id: req.params.id,
+    },
+  })
+  .then((dbData) => {
+    if (!dbData) {
+      res.status(404).json({ message: "catergory has no id" });
+      return;
+    }
+    res.json(dbData);
+  })
+  .catch((err) => {
+    // console.log(err)
+    console.log(err);
+    res.status(500).json(err);
+  });
 });
 
 module.exports = router;
