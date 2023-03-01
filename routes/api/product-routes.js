@@ -3,6 +3,7 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 
 // The `/api/products` endpoint
 
+// CRUD stuff down below
 // get all products
 router.get('/', (req, res) => {
   // find all products
@@ -16,7 +17,10 @@ router.get('/', (req, res) => {
     ],
   })
     .then ((dbData) => res.json(dbData))
-
+    .catch((err)=> {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 // get one product
