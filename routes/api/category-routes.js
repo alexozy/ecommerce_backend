@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { restart } = require('nodemon');
 const { Category, Product } = require('../../models');
 
 // The `/api/categories` endpoint
@@ -89,6 +90,7 @@ router.delete('/:id', (req, res) => {
         res.status(404).json({ message: "User not found"})
         return;
       }
+      res.status(200).json(dbData);
     })
     .catch(err => {
       console.log(err);

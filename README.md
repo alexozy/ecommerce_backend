@@ -1,7 +1,7 @@
 # ECommerce Backend
 
 ## **Description**
-
+A website is only as good as it's backend! 
 
 
 ## Table of Contents
