@@ -38,8 +38,8 @@ router.get('/:id', (req, res) => {
     ],
   })
     // your .thens and .catches!
-    .then(dbUserData => {
-      if(!dbUserData[0]){
+    .then(dbData => {
+      if(!dbData){
         res.status(404).json({ message: "User not found"})
         return;
       }
@@ -55,6 +55,11 @@ router.post('/', (req, res) => {
   Category.create({
     category_name: req.body.category_name,
   })
+  .then((dbData) => res.json(dbData))
+  .catch((err) => {
+    console.log(err);
+    res.status(400).json(err);
+  });
 });
 
 router.put('/:id', async (req, res) => {

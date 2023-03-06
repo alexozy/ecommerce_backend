@@ -145,7 +145,7 @@ router.delete('/:id', (req, res) => {
   })
   .then((dbData) => {
     if (!dbData) {
-      res.status(404).json({ message: "catergory has no id" });
+      res.status(404).json({ message: "product has no id" });
       return;
     }
     res.json(dbData);

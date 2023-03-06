@@ -35,8 +35,8 @@ router.get('/:id', (req, res) => {
     }],
   })
     .then((dbData) => {
-      if (!dbUserData) {
-        res.status(404).json({ message: "id has no user data" });
+      if (!dbData) {
+        res.status(404).json({ message: "tag has no user data" });
         return;
       }
       res.json(dbData);
