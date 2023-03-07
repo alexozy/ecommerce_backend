@@ -18,11 +18,11 @@ A usable website is only as good as it's backend functionality! With this challe
 dotenv | express.js | mysql2 | sequelize | Insomnia | 
 
 ## Usage
-This is not a live application. Users are encouraged to download the packages in "Technologies Used" and run the code locally.
+This is not a live application -- no live link will be provided. Users are encouraged to download the packages in "Technologies Used" and run clone the code locally.
 
 ## Application Recording
 
-[Screenrecording]()
+[Screenrecording](https://watch.screencastify.com/v/JkGSH7C78W28J2QanNpO)
 
 
 ## Questions
